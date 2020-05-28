@@ -1,5 +1,5 @@
 """
-WSGI config for mushrooms project.
+WSGI config for parcels project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

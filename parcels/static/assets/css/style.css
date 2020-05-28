@@ -24,17 +24,16 @@
 ===========================*/
 
 html, body {
-   height: 90%;
-    
-}
+font-family: 'Poppins', sans-serif;}
 
-@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,200;1,300&display=swap');
 body {
-  font-family: "Poppins", sans-serif;
-  font-weight: normal;
+font-family: 'Poppins', sans-serif;
+    font-weight: normal;
   font-style: normal;
   color: #121212;
   overflow-x: hidden; 
+    margin-top:100px;
 }
 
 
@@ -75,8 +74,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
+font-family: 'Poppins', sans-serif;
+font-weight: 600;
   color: #121212;
   margin: 0px; }
 
