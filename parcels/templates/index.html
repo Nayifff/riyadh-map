@@ -18,7 +18,7 @@
     <title>Mushraq | Riyadh Real Estate History</title>
 
     <!--====== Favicon Icon ======-->
-<!--    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/png">-->
+    <link rel="shortcut icon" href="{% static 'assets/images/photo.jpg' %}" type="image/png" style="max-height:20px" class="img-responsive">
 
     <!--====== Bootstrap css ======-->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
@@ -51,7 +51,8 @@
     </style>
     <script>
       var dataurl = '{% url "data" %}';
-
+      var parceldetails = '{% url "details" %}'
+      var xx = parceldetails.fields
       window.addEventListener("map:init", function (event) {
         var map = event.detail.map;
         // Download GeoJSON data with Ajax
@@ -63,11 +64,22 @@
             L.geoJson(data, {
               onEachFeature: function onEachFeature(feature, layer) {
                 var props = feature.properties;
-                var content = `<h3>${props.planno}</h3><h3>${props.parcelno}</h3><h3>${props.area}</h3>
-                            <table class="popup-table">
+                var content = `<table class="table">
+  <tr>
+    <th>Parcel No</th>
+    <th>Plan No</th>
+<th>Area [m^2]</th>
+  </tr>
+  <tr>
+    <td>${props.planno}</td>
+    <td>${props.parcelno}</td>
+ <td>${Math.round(props.area)}</td>
+</table>'
+{for ${props.planno}
+                            <table class="table">
   <tr>
     <th>Date of Transaction</th>
-    <th>Price</th>
+    <th>Price [SAR]</th>
   </tr>
   <tr>
     <td>December 20th, 2019</td>
@@ -79,7 +91,7 @@
   </tr>
 </table>`;
             layer.bindPopup(content, {
-    maxWidth : 200
+    maxWidth : 600
 });
             }}).addTo(map);
           });

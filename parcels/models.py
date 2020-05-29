@@ -16,16 +16,15 @@ class ParcelInfo(models.Model):
     def __str__(self):
         return self.planid
 
-#class History(models.Model):
-#
-#    id_ = models.CharField(max_length=256)
-#    description = models.TextField()
-#    price = []
-#    date = []
-#    geom = PolygonField()
-#
-#    def __str__(self):
-#        return self.title
+class History(models.Model):
+
+    planid = models.CharField(max_length=256)
+    description = models.CharField(max_length=256, default="residential")
+    price = models.CharField(max_length=256)
+    date = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.planid
 #
 #
 #import pandas as pd

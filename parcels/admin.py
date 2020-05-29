@@ -5,3 +5,5 @@ from . import models as parcels_models
 
 
 admin.site.register(parcels_models.ParcelInfo, LeafletGeoAdmin)
+
+admin.site.register(parcels_models.History)

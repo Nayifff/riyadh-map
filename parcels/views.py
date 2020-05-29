@@ -1,10 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
-from .models import ParcelInfo
-import geopy
-from  geopy.geocoders import Nominatim
 from django.views.generic import ListView
+from django.views.generic import TemplateView
+from django.core.serializers import serialize
+from django.http import HttpResponse
+from .models import ParcelInfo, History
+from  geopy.geocoders import Nominatim
+import geopy
+import json
 
 def get_lat_long(request):
     if request.GET.get('location'):
@@ -30,8 +34,16 @@ def get_lat_long(request):
 def get_top_100(lat,long):
     return 'something'
 
+def parcel_info(request):
+    parcelz=serialize('geojson',ParcelInfo.objects.all())
+    trial = json.loads(parcelz)
+    for i in trial['features']: 
+        filteri = i['properties']['planid']
+        queryset = serialize('json',History.objects.filter(planid=filteri))
+        if len(queryset) > 0:
+            break
+    return HttpResponse(queryset,content_type='json')
 
-class EntryList(ListView): 
-    queryset = ParcelInfo.objects.filter(planno__isnull=False)
-    
-    
+def parcel_details(request): 
+    queryset = serialize('json',History.objects.all())
+    return HttpResponse(queryset,content_type='json')
