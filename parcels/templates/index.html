@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!--====== Title ======-->
-    <title>ٍDar | Riyadh Real Estate History</title>
+    <title>Mushraq | Riyadh Real Estate History</title>
 
     <!--====== Favicon Icon ======-->
 <!--    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/png">-->
@@ -43,7 +43,11 @@
     <style>
       .leaflet-container { height: 90% !important; 
                             margin: 1%;
-        padding: inherit}
+                            margin-left: 3%;
+                            margin-right: 3%;
+          box-shadow: 0 0 3px black;
+          min-height: 400px;
+        }
     </style>
     <script>
       var dataurl = '{% url "data" %}';
@@ -59,7 +63,7 @@
             L.geoJson(data, {
               onEachFeature: function onEachFeature(feature, layer) {
                 var props = feature.properties;
-                var content = `<h3>${props.title}</h3><p>${props.description}
+                var content = `<h3>${props.planno}</h3><h3>${props.parcelno}</h3><h3>${props.area}</h3>
                             <table class="popup-table">
   <tr>
     <th>Date of Transaction</th>
@@ -73,13 +77,13 @@
     <td>December 20th, 2019</td>
     <td>1,000,000</td>
   </tr>
-</table></p>`;
+</table>`;
             layer.bindPopup(content, {
     maxWidth : 200
 });
             }}).addTo(map);
           });
-          map.locate({setView: true, maxZoom: 12});
+//          map.locate({setView: true, maxZoom: 12});
       });
             </script>
 
@@ -99,11 +103,19 @@
         {% if address %}
           <p><strong> Entered address: </strong>{{address}} </p>
           <p><strong> Coordinates of location:</strong> {{coordinates}} </p>
+               <script type="text/javascript">
+         function map_init_basic (map, options) {
+            marker = new L.marker([{{lat}}, {{long}}])
+		.bindPopup("<h3>"+'Entered Location'+"</h3>")
+		.addTo(map);}
+	</script>
           {% endif %}
           </div>
+    
       </form>
 </div>
+    
 {% endblock %}
-    {% leaflet_map "main" %}
+    {% leaflet_map "main" callback="window.map_init_basic" %}  
     </body>
 </html>

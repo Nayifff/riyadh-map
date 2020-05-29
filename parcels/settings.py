@@ -9,6 +9,10 @@ https://docs.djangoproject.com/en/stable/ref/settings/
 
 import os
 
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", __file__)
+#import django
+#django.setup()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -34,10 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'leaflet',
+    'django.contrib.gis',
     'djgeojson',
-    'parcels'
+    'parcels',
 ]
 
 MIDDLEWARE = [
@@ -75,13 +79,21 @@ WSGI_APPLICATION = 'parcels.wsgi.application'
 # https://docs.djangoproject.com/en/stable/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    'default':  {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'parcels',
+        'USER': 'postgres',
+        'PASSWORD': 'Naif123456 ',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
+POSTGIS_VERSION = (2, 0, 3)
 
+SERIALIZATION_MODULES = {
+    'geojson' : 'djgeojson.serializers'
+}
 # Password validation
 # https://docs.djangoproject.com/en/stable/ref/settings/#auth-password-validators
 

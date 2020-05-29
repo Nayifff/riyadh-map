@@ -21,11 +21,13 @@ from django.views.generic import TemplateView
 from djgeojson.views import GeoJSONLayerView
 from .views import *
 
-from .models import ParcelSpot
+from .models import ParcelInfo
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 #    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
-    url(r'^data.geojson$', GeoJSONLayerView.as_view(model=ParcelSpot, properties=('title', 'description', 'picture_url')), name='data'),
+     url(r'^data.geojson$', GeoJSONLayerView.as_view(model=ParcelInfo,        properties=('planno', 'parcelno', 'area')), name='data'),
     url(r'^$', get_lat_long, name='locationi')] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+ 
