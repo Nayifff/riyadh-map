@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype html5>
 <html lang="en">
 
 {% load leaflet_tags %}  
@@ -50,11 +50,10 @@
         }
     </style>
     <script>
-      var dataurl = '{% url "data" %}';
-      var parceldetails = '{% url "details" %}'
-      var xx = parceldetails.fields
       window.addEventListener("map:init", function (event) {
         var map = event.detail.map;
+        var cent = map.getCenter()
+        var dataurl = '{% url "data" lat=12345 long=11 %}'.replace(/12345/, (cent['lat'])).replace(/11/, cent['lng']);
         // Download GeoJSON data with Ajax
         fetch(dataurl)
           .then(function(resp) {
@@ -74,29 +73,32 @@
     <td>${props.planno}</td>
     <td>${props.parcelno}</td>
  <td>${Math.round(props.area)}</td>
-</table>'
-{for ${props.planno}
-                            <table class="table">
+</table>
+<table class="table">
   <tr>
     <th>Date of Transaction</th>
     <th>Price [SAR]</th>
-  </tr>
-  <tr>
-    <td>December 20th, 2019</td>
-    <td>{props.price}</td>
-  </tr>
-  <tr>
-    <td>December 20th, 2019</td>
-    <td>1,000,000</td>
-  </tr>
-</table>`;
-            layer.bindPopup(content, {
+  </tr>`;
+                if (props.history) { 
+                    var xx = ''
+                    var his = JSON.parse(props.history)
+                    for (i = 0; i < his.length; i++) { 
+                    xx = xx + `
+                      <tr>
+                        <td>${his[i].fields.date}</td>
+                        <td>${his[i].fields.price}</td>
+                      </tr>
+                        `
+                    } xx = xx + "</table>" ;} else { 
+                    var xx = "</table>"};
+            layer.bindPopup(content+xx, {
     maxWidth : 600
 });
             }}).addTo(map);
           });
 //          map.locate({setView: true, maxZoom: 12});
       });
+    
             </script>
 
 </head>
@@ -106,7 +108,8 @@
 <body>
 <div class="container align-items-center pt-3 pr-1">
       <form method='GET' action='' class="form-inline align-items-center">
-    <label class="control-label ml-5 mr-sm-5"><strong> Enter Address:</strong></label>
+    <label class="control-label ml-5 mr-sm-5"><strong> Enter Address: <br> (or coordinates)
+        <br> 24.73, 46.680</strong></label>
      <input type='text' name='location' class="form-control mr-sm-4 col-md-7" placeholder='' required/>
 
             <button type="submit" class="btn btn-secondary">Search</button>
@@ -116,10 +119,54 @@
           <p><strong> Entered address: </strong>{{address}} </p>
           <p><strong> Coordinates of location:</strong> {{coordinates}} </p>
                <script type="text/javascript">
-         function map_init_basic (map, options) {
+                function map_init_basic (map, options) {
             marker = new L.marker([{{lat}}, {{long}}])
 		.bindPopup("<h3>"+'Entered Location'+"</h3>")
-		.addTo(map);}
+		.addTo(map);
+                map.setView([{{lat}}, {{long}}], 15)
+                console.log({{lat}})
+        var dataurl2 = '{% url "data" lat=12345 long=11 %}'.replace(/12345/, {{lat}}).replace(/11/, {{long}})   
+        fetch(dataurl2)
+          .then(function(resp) {
+            return resp.json();
+          })
+          .then(function(data) {
+            L.geoJson(data, {
+              onEachFeature: function onEachFeature(feature, layer) {
+                var props = feature.properties;
+                var content = `<table class="table">
+  <tr>
+    <th>Parcel No</th>
+    <th>Plan No</th>
+<th>Area [m^2]</th>
+  </tr>
+  <tr>
+    <td>${props.planno}</td>
+    <td>${props.parcelno}</td>
+ <td>${Math.round(props.area)}</td>
+</table>
+<table class="table">
+  <tr>
+    <th>Date of Transaction</th>
+    <th>Price [SAR]</th>
+  </tr>`;
+                if (props.history) { 
+                    var xx = ''
+                    var his = JSON.parse(props.history)
+                    for (i = 0; i < his.length; i++) { 
+                    xx = xx + `
+                      <tr>
+                        <td>${his[i].fields.date}</td>
+                        <td>${his[i].fields.price}</td>
+                      </tr>
+                        `
+                    } xx = xx + "</table>" ;} else { 
+                    var xx = "</table>"};
+            layer.bindPopup(content+xx, {
+    maxWidth : 600
+});
+            }}).addTo(map);
+          });}
 	</script>
           {% endif %}
           </div>

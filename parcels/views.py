@@ -1,4 +1,6 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.gis.geos import Polygon, Point
+from django.contrib.gis.measure import Distance  
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
@@ -34,15 +36,20 @@ def get_lat_long(request):
 def get_top_100(lat,long):
     return 'something'
 
-def parcel_info(request):
-    parcelz=serialize('geojson',ParcelInfo.objects.all())
+def parcel_info(request,**kwargs):
+
+    lat = float(kwargs['lat'])
+    lng = float(kwargs['long'])
+    point = Point(lng, lat)
+    radius = 1  
+    parcelz=serialize('geojson',ParcelInfo.objects.filter(geom__distance_lt=(point, Distance(km=radius))))
     trial = json.loads(parcelz)
-    for i in trial['features']: 
+    for g,i in enumerate(trial['features']): 
         filteri = i['properties']['planid']
         queryset = serialize('json',History.objects.filter(planid=filteri))
-        if len(queryset) > 0:
-            break
-    return HttpResponse(queryset,content_type='json')
+        i['properties']['history'] = queryset
+    new = json.dumps(trial)
+    return HttpResponse(new,content_type='json')
 
 def parcel_details(request): 
     queryset = serialize('json',History.objects.all())

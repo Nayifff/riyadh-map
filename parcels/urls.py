@@ -29,7 +29,7 @@ urlpatterns = [
 #    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
 #     url(r'^data.geojson$', GeoJSONLayerView.as_view(model=ParcelInfo,        properties=('planno', 'parcelno', 'area')), name='data'),
     url(r'^details.json/$',parcel_details,name='details'),
-    url(r'^data.geojson/$',parcel_info,name='data'),
+    url(r'^(?P<lat>-?\d+.?\d+)/(?P<long>-?\d+.?\d+)/data.geojson$',parcel_info,name='data'),
     url(r'^$', get_lat_long, name='locationi')] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
  
