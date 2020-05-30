@@ -1,0 +1,60 @@
+<!doctype html5>
+<html lang="en">
+
+{% load leaflet_tags %}  
+{% load static %}
+{% include "base.html" %}
+{% leaflet_js %}
+{% leaflet_css %}
+<head>
+
+    <!--====== Required meta tags ======-->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--====== Title ======-->
+    <title>Mushraq | Riyadh Real Estate History</title>
+
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="{% static 'assets/images/photo.jpg' %}" type="image/png" style="max-height:20px" class="img-responsive">
+
+    <!--====== Bootstrap css ======-->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+    <!--====== Line Icons css ======-->
+    <link rel="stylesheet" href="{% static 'assets/css/LineIcons.css' %}">
+
+    <!--====== Magnific Popup css ======-->
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+    <!--====== Slick css ======-->
+    <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+
+    <!--====== Animate css ======-->
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+
+    <!--====== Default css ======-->
+    <link rel="stylesheet" href="{% static 'assets/css/default.css' %}">
+
+    <!--====== Style css ======-->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <!--====== map loading ======-->
+    </head>
+<!-- user input -->
+<body>
+<div class="container align-items-center pt-3 pr-1 form-group" >
+    
+<h1>Contact Us</h1>
+<form method="post" class="form-group">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-group">
+      <button class="btn btn-secondary mt-3" type="submit">Send</button>
+    </div>
+</form>
+    </div>
+
+    </body>
+
+</html>

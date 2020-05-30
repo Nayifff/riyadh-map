@@ -4,7 +4,7 @@
 {% load leaflet_tags %}  
 {% load static %}
 {% include "base.html" %}
-        {% leaflet_js %}
+{% leaflet_js %}
 {% leaflet_css %}
 <head>
 
@@ -46,7 +46,7 @@
                             margin-left: 3%;
                             margin-right: 3%;
           box-shadow: 0 0 3px black;
-          min-height: 400px;
+          min-height: 300px;
         }
     </style>
     <script>
@@ -92,7 +92,7 @@
                     } xx = xx + "</table>" ;} else { 
                     var xx = "</table>"};
             layer.bindPopup(content+xx, {
-    maxWidth : 600
+    maxWidth : 300
 });
             }}).addTo(map);
           });

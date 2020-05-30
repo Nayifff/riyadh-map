@@ -1,16 +1,20 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.gis.geos import Polygon, Point
 from django.contrib.gis.measure import Distance  
+from django.core.mail import send_mail, BadHeaderError
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.views.generic import TemplateView
+from django.shortcuts import render, redirect
 from django.core.serializers import serialize
 from django.http import HttpResponse
+from .forms import ContactForm
 from .models import ParcelInfo, History
 from  geopy.geocoders import Nominatim
 import geopy
 import json
+
 
 def get_lat_long(request):
     if request.GET.get('location'):
@@ -54,3 +58,33 @@ def parcel_info(request,**kwargs):
 def parcel_details(request): 
     queryset = serialize('json',History.objects.all())
     return HttpResponse(queryset,content_type='json')
+
+
+def contact(request):
+    return render(request,'contact.html')
+
+def analytics(request):
+    return render(request,'analytics.html')
+
+def about(request):
+    return render(request,'about.html')
+
+
+def contactView(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['name']
+            from_email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            try:
+                send_mail(subject, message, from_email, ['admin@example.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('success')
+    return render(request, "contact.html", {'form': form})
+
+def successView(request):
+    return HttpResponse('Success! Thank you for your message.')

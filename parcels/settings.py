@@ -74,6 +74,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'parcels.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # Database
 # https://docs.djangoproject.com/en/stable/ref/settings/#databases
