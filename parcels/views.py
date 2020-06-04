@@ -50,7 +50,7 @@ def parcel_info(request,**kwargs):
     trial = json.loads(parcelz)
     for g,i in enumerate(trial['features']): 
         filteri = i['properties']['planid']
-        queryset = serialize('json',History.objects.filter(planid=filteri))
+        queryset = serialize('json',History.objects.filter(planid=filteri).order_by('-date'))
         i['properties']['history'] = queryset
     new = json.dumps(trial)
     return HttpResponse(new,content_type='json')

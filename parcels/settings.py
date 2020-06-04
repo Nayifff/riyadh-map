@@ -42,7 +42,18 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'djgeojson',
     'parcels',
+#    'rest_framework',
+#    'rest_framework.authtoken',
+#    'rest_auth',
+    
 ]
+
+#REST_FRAMEWORK = {
+#    'DEFAULT_AUTHENTICATION_CLASSES': [
+#        'rest_framework.authentication.TokenAuthentication',  # <-- And here
+#    ],
+#}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

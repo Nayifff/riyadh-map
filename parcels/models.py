@@ -21,7 +21,7 @@ class History(models.Model):
     planid = models.CharField(max_length=256)
     description = models.CharField(max_length=256, default="residential")
     price = models.CharField(max_length=256)
-    date = models.CharField(max_length=256)
+    date = models.DateField()
 
     def __str__(self):
         return self.planid

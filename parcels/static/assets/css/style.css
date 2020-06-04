@@ -653,9 +653,10 @@ margin-left: 18px;
   -o-transition: all 0.3s ease-out 0s;
   transition: all 0.3s ease-out 0s; }
   .navbar-area img {
-    max-width: 50px; }
+    max-width: 200px; }
   #whatever {
-    max-width: 50px; }
+    max-width: 50px; 
+    margin: 0; !important}
   @media only screen and (min-width: 768px) and (max-width: 991px) {
     .navbar-area {
       padding: 10px 0; } }

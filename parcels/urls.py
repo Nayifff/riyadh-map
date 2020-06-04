@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^(?P<lat>-?\d+.?\d+)/(?P<long>-?\d+.?\d+)/data.geojson$',parcel_info,name='data'),
     url('^contact/', contactView, name='contact'),
     url('success/', successView, name='success'),
+#    path('rest-auth/', include('rest_auth.urls')),
     url(r'^$', get_lat_long, name='locationi')] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
  
