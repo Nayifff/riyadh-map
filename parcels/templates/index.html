@@ -110,10 +110,23 @@
       <form method='GET' action='' class="form-inline align-items-center">
     <label class="control-label ml-5 mr-sm-5"><strong> Enter Address: <br> (or coordinates
         <br> e.g. 24.73, 46.680)</strong></label>
-     <input type='text' name='location' class="form-control mr-sm-4 col-md-7" placeholder='' required/>
+     <input type='text' name='location' id="addressbar" class="form-control mr-sm-4 col-md-7" placeholder='' required/>
 
-            <button type="submit" class="btn btn-secondary">Search</button>
-       
+            <button type="submit" id="gotolatlong" class="btn btn-secondary">Search</button>
+<form>
+    <button type="submit" onclick="getLoc()" class="btn btn-secondary ml-3">My Location</button>
+</form>
+
+<script>
+
+function getLoc() {
+    navigator.geolocation.getCurrentPosition(function(position) { 
+    document.getElementById("addressbar").value = [position.coords.latitude, position.coords.longitude]
+    setTimeout(function(){ document.getElementById("gotolatlong").click(); }, 3000);
+    
+    })
+}
+</script>
           <div class="container align-items-center ml-5 mt-3"> 
         {% if address %}
           <p><strong> Entered address: </strong>{{address}} </p>
@@ -124,8 +137,8 @@
 		.bindPopup("<h3>"+'Entered Location'+"</h3>")
 		.addTo(map);
                 map.setView([{{lat}}, {{long}}], 15)
-                console.log({{lat}})
-        var dataurl2 = '{% url "data" lat=12345 long=11 %}'.replace(/12345/, {{lat}}).replace(/11/, {{long}})   
+                console.log({{lat}}, {{long}})
+        var dataurl2 = '{% url "data" lat=12345 long=15666 %}'.replace(/12345/, {{lat}}).replace(/15666/, {{long}});  
         fetch(dataurl2)
           .then(function(resp) {
             return resp.json();
@@ -173,7 +186,7 @@
     
       </form>
 </div>
-    
+
 {% endblock %}
     {% leaflet_map "main" callback="window.map_init_basic" %}  
     </body>

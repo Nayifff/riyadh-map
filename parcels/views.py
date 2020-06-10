@@ -15,7 +15,7 @@ from  geopy.geocoders import Nominatim
 import geopy
 import json
 
-
+# function to get lat and long from an adress inputed by user 
 def get_lat_long(request):
     if request.GET.get('location'):
             address = request.GET.get('location')
@@ -36,10 +36,9 @@ def get_lat_long(request):
                 return render(request, 'index.html')
     else:
         return render(request, 'index.html')
-    
-def get_top_100(lat,long):
-    return 'something'
 
+    
+# function to get all 
 def parcel_info(request,**kwargs):
 
     lat = float(kwargs['lat'])

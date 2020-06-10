@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.gis.db import models as gismodels
 
-
+# Database table for parcels info: 
 class ParcelInfo(models.Model):
 
     planid = models.CharField(max_length=256, default=0)
@@ -16,6 +16,8 @@ class ParcelInfo(models.Model):
     def __str__(self):
         return self.planid
 
+    
+# Database table for parcels info: 
 class History(models.Model):
 
     planid = models.CharField(max_length=256)
@@ -25,22 +27,3 @@ class History(models.Model):
 
     def __str__(self):
         return self.planid
-#
-#
-#import pandas as pd
-##from models import ParcelInfo
-#df=pd.read_csv('parcels/db_sample.csv')
-##
-###print(df)
-##
-#row_iter = df.iterrows()
-#
-#for row in row_iter:
-#    planid = row['id'],
-#    planno  = row['planno'],
-#    parcelno  = row['parcelno'],
-#    coords  = row['coords'],
-#    lat  = row['lat'],
-#    long  = row['long'],
-#    area  = row['area']
-#    ParcelInfo(planid=planid, planno=planno, parcelno=parcelno, coords=coords,lat=lat,long=long,area=area).save()
