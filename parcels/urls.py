@@ -21,7 +21,7 @@ from django.views.generic import TemplateView
 from djgeojson.views import GeoJSONLayerView
 from .views import *
 from django.urls import path, include
-
+from .api import views
 from .models import ParcelInfo
 
 
@@ -35,7 +35,8 @@ urlpatterns = [
     url(r'^(?P<lat>-?\d+.?\d+)/(?P<long>-?\d+.?\d+)/data.geojson$',parcel_info,name='data'),
     url('^contact/', contactView, name='contact'),
     url('success/', successView, name='success'),
-#    path('rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/', include('rest_auth.urls')),
+    path('api', views.ParcelListView.as_view(), name=None),
     url(r'^$', get_lat_long, name='locationi')] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
  
