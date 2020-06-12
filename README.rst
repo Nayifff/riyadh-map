@@ -6,6 +6,10 @@ Install Django dependencies:
 
 .. code-block:: bash
 
+    brew install gdal
+
+.. code-block:: bash
+
     pip install -r requirements.txt
 
 Initialize database tables:
