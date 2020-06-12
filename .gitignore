@@ -5,10 +5,10 @@ xcuserdata/
 # vscode
 .vscode
 
-# dev
+# python
 __pycache__/
-*.py[cod]
+*.pyc
 
-# dev
+# env
 env/
 .envrc
