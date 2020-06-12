@@ -59,7 +59,7 @@ singledispatch==3.4.0.3
 six==1.11.0
 SQLAlchemy==1.2.9
 tensorboard==2.0.2
-tensorflow==2.0.0
+tensorflow==2.0.1
 tensorflow-estimator==2.0.1
 termcolor==1.1.0
 urllib3==1.25.7
