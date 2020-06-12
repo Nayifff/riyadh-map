@@ -1,0 +1,14 @@
+# mac
+.DS_Store
+xcuserdata/
+
+# vscode
+.vscode
+
+# dev
+__pycache__/
+*.py[cod]
+
+# dev
+env/
+.envrc
