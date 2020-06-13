@@ -36,7 +36,12 @@ urlpatterns = [
     url('^contact/', contactView, name='contact'),
     url('success/', successView, name='success'),
     url(r'^rest-auth/', include('rest_auth.urls')),
-    path('api', views.ParcelListView.as_view(), name=None),
+    path('api/parcels', views.ParcelListView.as_view(), name=None),
+    path('api/parcels/create/', views.ParcelCreateView.as_view(), name=None),
+    path('api/parcels/<int:pk>/', views.ParcelDetailView.as_view(), name=None),
+    path('api/history', views.HistoryListView.as_view(), name=None),
+    path('api/history/create/', views.HistoryCreateView.as_view(), name=None),
+    path('api/history/<int:pk>/', views.HistoryDetailView.as_view(), name=None),
     url(r'^$', get_lat_long, name='locationi')] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
  

@@ -5,7 +5,7 @@ from django.contrib.gis.db import models as gismodels
 # Database table for parcels info: 
 class ParcelInfo(models.Model):
 
-    planid = models.CharField(max_length=256, default=0)
+    parcelid = models.CharField(max_length=256, default=0)
     planno = models.CharField(max_length=256, default=0)
     parcelno = models.CharField(max_length=256, default=0)
     geom = gismodels.PolygonField()
@@ -20,10 +20,12 @@ class ParcelInfo(models.Model):
 # Database table for parcels info: 
 class History(models.Model):
 
-    planid = models.CharField(max_length=256)
+    parcelid = models.CharField(max_length=256)
     description = models.CharField(max_length=256, default="residential")
+    neighborhood = models.CharField(max_length=256)
     price = models.CharField(max_length=256)
     date = models.DateField()
+    
 
     def __str__(self):
         return self.planid
