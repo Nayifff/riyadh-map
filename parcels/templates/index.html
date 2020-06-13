@@ -106,15 +106,15 @@
 {% block content %}
 <!-- user input -->
 <body>
-<div class="container align-items-center pt-3 pr-1">
+<div class="container align-items-center pt-2 pr-1">
       <form method='GET' action='' class="form-inline align-items-center">
-    <label class="control-label ml-5 mr-sm-5"><strong> Enter Address: <br> (or coordinates
+    <label class="control-label ml-2 mr-sm-5"><strong> Enter Address: <br> (or coordinates
         <br> e.g. 24.73, 46.680)</strong></label>
      <input type='text' name='location' id="addressbar" class="form-control mr-sm-4 col-md-7" placeholder='' required/>
 
             <button type="submit" id="gotolatlong" class="btn btn-secondary">Search</button>
 <form>
-    <button type="submit" onclick="getLoc()" class="btn btn-secondary ml-3">My Location</button>
+    <button type="submit" onclick="getLoc()" class="btn btn-secondary ml-2">My Location</button>
 </form>
 
 <script>
@@ -127,7 +127,7 @@ function getLoc() {
     })
 }
 </script>
-          <div class="container align-items-center ml-5 mt-3"> 
+          <div class="align-items-center ml-5 mt-3"> 
         {% if address %}
           <p><strong> Entered address: </strong>{{address}} </p>
           <p><strong> Coordinates of location:</strong> {{coordinates}} </p>
