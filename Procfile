@@ -1,1 +1,1 @@
-web: gunicorn herokugisproject.wsgi --log-file=-
+web: gunicorn parcels.wsgi --log-file=-
