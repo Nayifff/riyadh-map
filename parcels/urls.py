@@ -26,7 +26,7 @@ from .models import ParcelInfo
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^adminandonlyadmin/', admin.site.urls),
     url(r'^about/', about, name='about'),
 #     url(r'^contact/$', contact, name='contact'),
     url(r'^analytics/', analytics, name='analytics'),
