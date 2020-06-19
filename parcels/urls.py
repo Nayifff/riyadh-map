@@ -42,6 +42,6 @@ urlpatterns = [
     path('api/history', views.HistoryListView.as_view(), name=None),
     path('api/history/create/', views.HistoryCreateView.as_view(), name=None),
     path('api/history/<int:pk>/', views.HistoryDetailView.as_view(), name=None),
-    url(r'^$', get_lat_long, name='locationi')] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    url(r'^$', get_lat_long, name='locationi')] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
  

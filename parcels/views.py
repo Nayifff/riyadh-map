@@ -14,6 +14,7 @@ from .models import ParcelInfo, History
 from  geopy.geocoders import Nominatim
 import geopy
 import json
+import re
 
 # function to get lat and long from an adress inputed by user 
 def get_lat_long(request):
@@ -23,7 +24,6 @@ def get_lat_long(request):
                 locator = Nominatim(user_agent="myGeocoder")
                 location = locator.geocode(address)
                 print(location)
-                #do something with user
                 html = ("<H1>%s</H1>", location)
                 return render(request, 'index.html',{
                 'address': location[0],

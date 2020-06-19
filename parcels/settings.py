@@ -1,13 +1,22 @@
 """
-
 For more information on this file, see
 https://docs.djangoproject.com/en/stable/topics/settings/
-
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/stable/ref/settings/
 """
 
 import os
+
+
+from os.path import join, dirname
+from dotenv import load_dotenv
+import dj_database_url
+# Create .env file path.
+dotenv_path = join(dirname(__file__), '../.env')
+
+# Load file from the path.
+
+load_dotenv(dotenv_path)
 
 #os.environ.setdefault("DJANGO_SETTINGS_MODULE", __file__)
 #import django
@@ -63,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'parcels.urls'
@@ -92,15 +102,20 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # https://docs.djangoproject.com/en/stable/ref/settings/#databases
 
 DATABASES = {
-    'default':  {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'parcels',
-        'USER': 'postgres',
-        'PASSWORD': 'Naif123456 ',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+    'default': {        
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',        
+        'NAME': os.getenv('DB_NAME'),        
+        'USER': os.getenv('DB_USER'),        
+        'PASSWORD': os.getenv('DB_PASSWORD'),        
+        'HOST': os.getenv('DB_HOST'),        
+        'PORT': os.getenv('DB_PORT')   
     }
 }
+
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 POSTGIS_VERSION = (2, 0, 3)
 
@@ -145,11 +160,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
+
+STATICFILES_DIRS = (    
+    
+    os.path.join(BASE_DIR, 'static'),
+
+)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LEAFLET_CONFIG = {
     'DEFAULT_CENTER': (24.713, 46.6753),
@@ -158,3 +182,6 @@ LEAFLET_CONFIG = {
     'MAX_ZOOM': 18,
     'SPATIAL_EXTENT': (22, 33, 56, 18)
 }
+
+GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
+GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
