@@ -47,10 +47,10 @@ def parcel_info(request,**kwargs):
     radius = 1  
     parcelz=serialize('geojson',ParcelInfo.objects.filter(geom__distance_lt=(point, Distance(km=radius))))
     trial = json.loads(parcelz)
-#    for g,i in enumerate(trial['features']): 
-#        filteri = i['properties']['parcelid']
-#        queryset = serialize('json',History.objects.filter(parcelid=filteri).order_by('-date'))
-    i['properties']['history'] = []
+    for g,i in enumerate(trial['features']): 
+        filteri = i['properties']['parcelid']
+        queryset = serialize('json',History.objects.filter(parcelid=filteri).order_by('-date'))
+        i['properties']['history'] = queryset
     new = json.dumps(trial)
     return HttpResponse(new,content_type='json')
 
