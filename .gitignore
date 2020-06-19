@@ -1,14 +1,5 @@
-# mac
-.DS_Store
-xcuserdata/
+__pycache__
 
-# vscode
-.vscode
-
-# python
-__pycache__/
 *.pyc
 
-# env
-env/
-.envrc
+.env
