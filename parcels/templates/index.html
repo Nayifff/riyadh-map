@@ -81,7 +81,7 @@
   </tr>`;
                 if (props.history) { 
                     var xx = ''
-                    var his = JSON.parse(props.history)
+                    var his = props.history
                     for (i = 0; i < his.length; i++) { 
                     xx = xx + `
                       <tr>
@@ -165,7 +165,7 @@ function getLoc() {
   </tr>`;
                 if (props.history) { 
                     var xx = ''
-                    var his = JSON.parse(props.history)
+                    var his = props.history
                     for (i = 0; i < his.length; i++) { 
                     xx = xx + `
                       <tr>
