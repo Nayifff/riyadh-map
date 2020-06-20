@@ -168,25 +168,37 @@ function getLoc() {
 <th>Area [m^2]</th>
   </tr>
   <tr>
-    <td>${props.planno}</td>
     <td>${props.parcelno}</td>
+    <td>${props.planno}</td>
  <td>${Math.round(props.area)}</td>
 </table>
 <table class="table">
   <tr>
     <th>Date of Transaction</th>
     <th>Price [SAR]</th>
+    <th>Price/m^2 [SAR]</th>
+    <th>Price Change [%]</th>
   </tr>`;
                 if (props.history) { 
                     var xx = ''
                     var his = props.history
-                    for (i = 0; i < his.length; i++) { 
+                    for (i = 0; i < his.length; i++) {
+                    var date = his[i].fields.date
+                    var price = his[i].fields.price
+                    var pricem2 = Math.round(price/props.area)
+                    if (i == his.length-1) { 
+                        var change = 0;
+                    }                                 
+                    else {
+                        var change = Math.round((((his[i].fields.price)-(his[i+1].fields.price))/(his[i+1].fields.price)*100) * 100) / 100
+                    };
                     xx = xx + `
                       <tr>
-                        <td>${his[i].fields.date}</td>
-                        <td>${his[i].fields.price}</td>
-                      </tr>
-                        `
+                        <td>${date}</td>
+                        <td>${price}</td>
+                        <td>${pricem2}</td> 
+                        <td>${change}%</td> 
+                      </tr>`
                     } xx = xx + "</table>" ;} else { 
                     var xx = "</table>"};
             layer.bindPopup(content+xx, {
