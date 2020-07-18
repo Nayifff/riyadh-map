@@ -106,13 +106,13 @@
                     } xx = xx + "</table>" ;} else { 
                     var xx = "</table>"};
             layer.bindPopup(content+xx, {
-    maxWidth : 500
+    maxWidth : "auto"
 });
             }}).addTo(map);
           });
 //          map.locate({setView: true, maxZoom: 12});
       });
-    
+    var currentViewCenter = map.getCenter()
             </script>
 
     
@@ -212,7 +212,7 @@ function getLoc() {
                     } xx = xx + "</table>" ;} else { 
                     var xx = "</table>"};
             layer.bindPopup(content+xx, {
-    maxWidth : 600
+    maxWidth : "auto"
 });
             }}).addTo(map);
           });}
