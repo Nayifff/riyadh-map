@@ -1,6 +1,6 @@
 asgiref==3.2.7
 astroid==2.4.1
-Django==3.0
+Django==3.1.6
 django-geojson==3.0.0
 django-jsonfield==1.4.0
 django-leaflet==0.26.0
