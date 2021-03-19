@@ -6,7 +6,7 @@ django-jsonfield==1.4.0
 django-leaflet==0.26.0
 django-rest-auth==0.9.5
 django-utils==0.0.2
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 geographiclib==1.50
 geopy==1.22.0
 isort==4.3.21
